@@ -5,7 +5,8 @@
 
 int main () {
     char *my_char = (char*)my_malloc (8 * sizeof (char));
-    strcpy (my_char, "ciao");
+    char* str = "ciao";
+    memcpy (my_char, str, 4 * sizeof (char));
     uint8_t *my_number = (uint8_t*)my_malloc (sizeof (uint8_t));
     *my_number = 129;
     printf ("%p\n", my_char);
@@ -15,7 +16,7 @@ int main () {
     my_free_block ();
 
     char *my_char2 = (char*)my_malloc (8 * sizeof (char));
-    strcpy (my_char2, "ciao");
+    memcpy (my_char2, str, 4 * sizeof (char));
     uint8_t *my_number2 = (uint8_t*)my_malloc (sizeof (uint8_t));
     *my_number2 = 129;
     printf ("%p\n", my_char2);
