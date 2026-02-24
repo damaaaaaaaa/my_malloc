@@ -27,7 +27,12 @@
  */
 void* my_malloc (size_t size);
 
-typedef struct block page_block;
-
+/**
+ * \brief Free all the block allocated with my_malloc. 
+ * 
+ * 
+ * 
+ */
+void my_free_block ();
 
 #endif

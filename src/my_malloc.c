@@ -3,14 +3,16 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <sys/mman.h>
+#include <errno.h>
+#include <string.h>
 
 #include "my_malloc_private.h"
 
 #define R_MEM_SIZE 4096
 
+static page_block *block = NULL;
 
 void *my_malloc (size_t size) {
-    static page_block *block = NULL;
     if (block == NULL || size > block->memory_left) { 
         void *raw_memory = mmap (
                                 NULL, size,
@@ -35,21 +37,11 @@ void *my_malloc (size_t size) {
     return mem;
 }
 
-/*int main () {
-    uint32_t *memoria = (uint32_t*)my_malloc (sizeof(uint32_t));
-    *memoria = 200;
-    printf ("\n%p\n", memoria);
-    printf ("%d", *memoria);
-    return 0;
+void my_free_block () {
+    if (block == NULL) return;
+    if (munmap (block, R_MEM_SIZE) == -1) {
+        printf ("free failed with error %d <%s>.\n", errno, strerror (errno));
+    }
+    block = NULL;
 }
 
-
-int main () {
-    uint8_t *memoria = (uint8_t *)my_alloc (5 * sizeof(uint8_t));
-    printf ("\n%p\n", memoria);
-    *memoria = 10;
-    printf ("%p\n", memoria + 1 * sizeof (uint8_t));
-    printf ("%d\n", *memoria);
-    return 0;
-}
-*/
