@@ -9,7 +9,7 @@
 struct block {
     unsigned char* heap_start;
     unsigned char* heap_copy;
-    int memory_left;
+    size_t memory_left;
 };
 
 typedef struct block page_block;

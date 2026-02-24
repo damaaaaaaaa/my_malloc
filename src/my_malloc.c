@@ -8,24 +8,26 @@
 
 #define R_MEM_SIZE 4096
 
+
 void *my_malloc (size_t size) {
-    
-    void *raw_memory = mmap (
-                            NULL, size,
-                            PROT_READ | PROT_WRITE,
-                            MAP_ANONYMOUS | MAP_PRIVATE, 
-                            -1, 0
-                            );
+    static page_block *block = NULL;
+    if (block == NULL || size > block->memory_left) { 
+        void *raw_memory = mmap (
+                                NULL, size,
+                                PROT_READ | PROT_WRITE,
+                                MAP_ANONYMOUS | MAP_PRIVATE, 
+                                -1, 0
+                                );
 
-    if (raw_memory == MAP_FAILED) {
-        perror ("errore nell'allocazione della memoria");
-        return NULL;    
+        if (raw_memory == MAP_FAILED) {
+            perror ("errore nell'allocazione della memoria");
+            return NULL;    
+        }
+        block = (page_block*)raw_memory;
+        block->heap_start = (unsigned char*)raw_memory + sizeof (page_block);
+        block->heap_copy = block->heap_start;
+        block->memory_left = R_MEM_SIZE - sizeof (page_block);
     }
-    page_block *block = (page_block*)raw_memory;
-    block->heap_start = (unsigned char*)raw_memory + sizeof (page_block);
-    block->heap_copy = block->heap_start;
-    block->memory_left = R_MEM_SIZE - sizeof (page_block);
-
     void* mem = (void*)block->heap_copy;
     
     block->heap_copy += size;
