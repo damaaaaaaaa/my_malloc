@@ -43,5 +43,16 @@ void my_free_block ();
  */
 void *my_realloc (void *ptr, size_t old_size ,size_t new_size);
 
+/**
+ * \brief Alloc a contiguos block of memory and set it to 0
+ * 
+ ** \param memsize Number of element
+ * \param size Number of bytes for each element
+ * 
+ * 
+ * 
+ * 
+ */
+void *my_calloc (size_t memsize, size_t size);
 
 #endif

@@ -53,3 +53,10 @@ void *my_realloc (void *ptr, size_t old_size, size_t new_size) {
     else memcpy (new_ptr, ptr, new_size);
     return new_ptr;
 }
+
+void *my_calloc (size_t memsize, size_t size) {
+    void *ptr = my_malloc (memsize * size);
+    if (ptr == NULL) return NULL;
+    memset (ptr, 0, size * memsize);
+    return ptr;
+}

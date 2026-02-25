@@ -15,7 +15,7 @@ int main () {
     printf ("Pointer at integer after my_malloc: %p\n", my_number);
     printf ("Value: %d\n", *my_number);
 
-    uint16_t *my_new_number = (uint16_t*)my_realloc (my_number, sizeof (uint8_t) ,sizeof (uint16_t));
+    uint8_t *my_new_number = (uint8_t*)my_realloc (my_number, sizeof (uint8_t) ,sizeof (uint8_t));
     printf ("Pointer at integer after my_realloc: %p\n", my_new_number);
     printf ("Value: %d\n", *my_new_number);
 
@@ -29,6 +29,10 @@ int main () {
     printf ("String: %s\n", my_char2);
     printf ("Pointer at integer after my_free and my_malloc: %p\n", my_number2);
     printf ("Value: %d\n", *my_number2);
+    uint8_t *my_array = (uint8_t*) my_calloc (5, sizeof (uint8_t));
+    for (size_t i = 0; i < 5; i++) {
+        printf ("Valore inizializzato della my_calloc numero <%ld>: %d\n", i, *(my_array + i));
+    }
     my_free_block ();
     return 0;
 }
