@@ -9,15 +9,13 @@ int main () {
     char* str = "ciao";
     memcpy (my_char, str, 4 * sizeof (char));
     uint8_t *my_number = (uint8_t*)my_malloc (sizeof (uint8_t));
-    size_t dim = get_allocation_size(my_number);
-    printf ("dim: %ld", dim);
     *my_number = 129;
     printf ("%p\n", my_char);
     printf ("%s\n", my_char);
     printf ("%p\n", my_number);
     printf ("%d\n", *my_number);
 
-    uint16_t *my_new_number = (uint16_t*)my_realloc (my_number, sizeof (uint16_t));
+    uint16_t *my_new_number = (uint16_t*)my_realloc (my_number, sizeof (uint8_t) ,sizeof (uint16_t));
     printf ("%p\n", my_new_number);
     printf ("%d\n", *my_new_number);
 

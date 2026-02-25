@@ -41,7 +41,7 @@ void my_free_block ();
  * 
  * 
  */
-void *my_realloc (void *ptr, size_t size);
+void *my_realloc (void *ptr, size_t old_size ,size_t new_size);
 
 
 #endif

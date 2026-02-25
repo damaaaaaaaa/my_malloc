@@ -45,9 +45,11 @@ void my_free_block () {
     block = NULL;
 }
 
-void *my_realloc (void *ptr, size_t size) {
-    void *new_ptr = my_malloc (size);
+void *my_realloc (void *ptr, size_t old_size, size_t new_size) {
+    if (ptr == NULL) return NULL;
+    void *new_ptr = my_malloc (new_size);
     if (new_ptr == NULL) return NULL;
-    memcpy (new_ptr, ptr, size);
+    if (old_size <= new_size) memcpy (new_ptr, ptr, old_size);
+    else memcpy (new_ptr, ptr, new_size);
     return new_ptr;
 }
