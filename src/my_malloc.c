@@ -45,3 +45,8 @@ void my_free_block () {
     block = NULL;
 }
 
+void *my_realloc (void *ptr, size_t size) {
+    void *new_ptr = my_malloc (size / 2);
+    while ((*(unsigned char*)++new_ptr = (*(unsigned char*)++ptr)));
+    return new_ptr;
+}
