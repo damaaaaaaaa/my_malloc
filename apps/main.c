@@ -1,5 +1,6 @@
 #include "include/my_malloc.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
 
@@ -8,6 +9,8 @@ int main () {
     char* str = "ciao";
     memcpy (my_char, str, 4 * sizeof (char));
     uint8_t *my_number = (uint8_t*)my_malloc (sizeof (uint8_t));
+    size_t dim = get_allocation_size(my_number);
+    printf ("dim: %ld", dim);
     *my_number = 129;
     printf ("%p\n", my_char);
     printf ("%s\n", my_char);
@@ -15,7 +18,6 @@ int main () {
     printf ("%d\n", *my_number);
 
     uint16_t *my_new_number = (uint16_t*)my_realloc (my_number, sizeof (uint16_t));
-    *my_new_number = 1000;
     printf ("%p\n", my_new_number);
     printf ("%d\n", *my_new_number);
 
